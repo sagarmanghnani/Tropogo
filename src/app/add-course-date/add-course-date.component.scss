@@ -1,0 +1,33 @@
+
+
+.batch-header-setting{
+    display: flex;
+    align-items: center;
+    .datepicker-container{
+        display: flex;
+        align-items: center;
+        .datePick{
+            visibility: hidden;
+            height: 0;
+            width: 0;
+        }
+    
+        button{
+            border: none;
+            background: transparent;
+        }
+    }
+
+    .action-div{
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+::ng-deep .optionSelect div.mat-select-arrow-wrapper {
+    display: none;
+  }
+  
+  ::ng-deep .optionSelect.mat-select {
+    display: inline;
+  }

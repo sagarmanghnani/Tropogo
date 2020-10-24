@@ -1,0 +1,43 @@
+<div class="course-container">
+    <div class="heading">
+        <h1 class="header-text"> Add course details </h1>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="form-container">
+        <div class="course_name common-margin form-styling">
+            <label> Course Name </label>
+            <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" required>  
+        </div>
+
+        <div class="gallery common-margin form-styling">
+            <label> Previous course gallery <span (click)="uploadImage()"> <img src = "assets/ic_upload.png"> UPLOAD </span> </label>
+            <input type="file" accept="image/*" name = "image" (change) = "addImage($event)" style="display: none;" #imageupload >
+        </div>
+
+        <div *ngIf="createCourse?.image_urls?.length" class="image-container" >
+            <div *ngFor="let imageSrc of createCourse?.image_urls;let i = index" class="image-width" >
+                <img [src] = "imageSrc">
+            </div>
+        </div>
+
+        <div class="aircraft-type common-margin form-styling">
+            <label> Aircraft Type </label>
+            <mat-radio-group [(ngModel)] = "createCourse.aircraft_type">
+                <mat-radio-button [value] = "aircraftTypes.FixedWing"> Multi Rotar </mat-radio-button>
+                <mat-radio-button [value] = "aircraftTypes.MultiRotar" > Fixed Wing </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div>
+            <div *ngIf="batchMap.size" >
+                <div *ngFor="let batchModified of this.batchMap |keyvalue" >
+                    <app-add-course-date [batch] = "batchModified.value"> </app-add-course-date>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>

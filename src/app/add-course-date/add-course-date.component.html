@@ -1,0 +1,35 @@
+<div class="batch-container">
+    <div class="batch-header clr-row">
+        <div class="clr-col-9 batch-header-setting" >
+            <div class="clr-col-4">
+                Batch {{courseService.batchNumber}}
+            </div>
+            <div class="clr-col-4 datepicker-container">
+                <img src="assets/ic_selectdate.png">
+                <input matInput [matDatepicker]="startdate" [(ngModel)] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick">
+                <mat-datepicker #startdate  name = "startdate" [ngModel] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl></mat-datepicker>
+                <button (click)="startdate.open()"> {{showDate(batch.batch.start_date)}} </button>
+            </div>
+            <div class="clr-col-4 datepicker-container">
+                <img src="assets/ic_selectdate.png">
+                <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick">
+                <mat-datepicker #enddate [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl></mat-datepicker>
+                <button (click) = "enddate.open()"> {{showDate(batch.batch.end_date)}}</button>
+            </div>
+        </div>
+
+        <div class="clr-col-3 action-div">
+            <button mat-icon-button (click)="select.open()"> 
+                <mat-icon>more_vert</mat-icon> 
+                <mat-select #select class="optionSelect">
+                    <mat-option (click)="resetData()"> Reset </mat-option>
+                    <mat-option (click)="deleteData()"> Delete </mat-option>
+                </mat-select>
+            </button>
+
+            <button mat-icon-button >
+                <mat-icon>{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

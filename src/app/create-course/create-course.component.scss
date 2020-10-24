@@ -1,0 +1,60 @@
+.course-container{
+    margin-top: 20px;
+    .header-text{
+        color: var(--heading-color);
+        font-size: 1.8rem;
+    }
+
+    .form-container{
+        .input-text{
+            border: 1px solid #aeacb5;
+            padding: 10px;
+        }
+    
+        label{
+            color: var(--heading-color);
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    
+        .common-margin{
+            margin-top: 10px;
+        }
+
+        .form-styling {
+            display: flex;
+            flex-flow: column;
+        }
+
+        .gallery{
+            label{
+                display: flex;
+                :last-child{
+                    margin-left: auto;
+                    color: var(--teriary-button);
+                }
+            }
+        }
+
+        .image-container{
+            display: flex;
+            .image-width{
+                width: 20%;
+                box-sizing: border-box;
+                padding-right: 5px;
+                img{
+                    width: 100%
+                }
+            }
+        }
+
+        mat-radio-group{
+            color: #827a92;
+            mat-radio-button{
+                margin-right: 30px;
+            }
+        }
+    }
+
+    
+}

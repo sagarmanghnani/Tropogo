@@ -7,20 +7,45 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import { HeaderComponent } from './header/header.component'
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { CreateCourseComponent } from './create-course/create-course.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { HomeComponent } from './home/home.component'
+import { FormsModule } from '@angular/forms';
+import { ImageZoomComponent } from './image-zoom/image-zoom.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+import { AddCourseDateComponent } from './add-course-date/add-course-date.component'
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select'
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    CreateCourseComponent,
+    HomeComponent,
+    ImageZoomComponent,
+    AddCourseDateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule,
+    FormsModule,
+    MatDialogModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
