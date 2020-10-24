@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter } from '@angular/core';
 import { Course } from 'src/Modals/Course.modal';
 import {CourseService} from '../course.service'
 import {Batch} from 'src/Modals/Batch.modal';
 import { BatchModified } from 'src/Modals/BatchModified.modal';
-
+import {LanguageModel} from 'src/Modals/Language.modal'
 @Component({
   selector: 'app-add-course-date',
   templateUrl: './add-course-date.component.html',
@@ -15,6 +15,11 @@ export class AddCourseDateComponent implements OnInit {
   minDate:Date = new Date();
   startDate;
   endDate;
+  autoCompleteSuggestions:any;
+  isLocationAutoSuggestionActive:boolean = false;
+  languages:LanguageModel[] = []; 
+  searchedLanguages:LanguageModel[] = [];
+  deleteBatch:EventEmitter<number> = new EventEmitter();
   constructor(
     public courseService:CourseService
   ) { }
@@ -23,6 +28,8 @@ export class AddCourseDateComponent implements OnInit {
     let date = new Date();
     this.maxDate = new Date(date.getFullYear(), 11, 31);
     this.minDate = new Date();
+    this.batch.batch.location = null;
+    this.getLanguage();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,11 +57,57 @@ export class AddCourseDateComponent implements OnInit {
     }
   }
 
-  
+  async searchPlaces(event){
+    let val = event.target.value;
+    if(val){
+      this.autoCompleteSuggestions = await this.courseService.searchPlaces(val);
+      console.log(this.autoCompleteSuggestions);
+    }
+  }
 
-  resetData(){}
 
-  deleteData(){}
+
+  allotPlace(autoCompleteData:any){
+    this.batch.batch.location = autoCompleteData.description;
+    this.hideLocationAutoSuggestion();
+  }
+
+  hideLocationAutoSuggestion(){
+    this.isLocationAutoSuggestionActive = false;
+  }
+
+  showLocationAutoSuggestion(){
+    this.isLocationAutoSuggestionActive = true;
+  }
+
+  getLanguage(){
+    this.courseService.getLanguages().subscribe(res => {
+      this.languages = res.languages;
+      this.searchedLanguages = [...this.languages];
+    })
+  }
+
+  searchLanguage(event){
+    let value = event.target.value;
+    if(value){
+      this.searchedLanguages = this.languages.filter(language => {
+        if(language.language.includes(value))
+        return language;
+      })
+    }else{
+      this.searchedLanguages = [...this.languages];
+    }
+  }
+
+
+  resetData(){
+    this.batch.batch = new Batch();
+    this.batch.batch.location = ''
+  }
+
+  deleteData(){
+    this.courseService.deleteBatch(this.batch.batchId);
+  }
 
 
   

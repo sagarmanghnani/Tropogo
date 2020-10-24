@@ -4,4 +4,7 @@ export class Batch {
     end_date:string;
     batch_id:number;
     course_id:number;
+    location:string;
+    language_ids:number[];
+    cost:number;
 }

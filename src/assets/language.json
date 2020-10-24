@@ -1,0 +1,24 @@
+{
+    "languages": [
+        {
+            "language":"english",
+            "id":1
+        },
+        {
+            "language":"hindi",
+            "id":2
+        },
+        {
+            "language":"marathi",
+            "id":3
+        },
+        {
+            "language":"kannada",
+            "id":4
+        },
+        {
+            "language":"bojpuri",
+            "id":5
+        }
+    ]
+}

@@ -31,6 +31,9 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit(): void {
       this.initializeBatch();
+      this.courseService.deleteBatchEvent.subscribe((batchId) => {
+        this.deleteBatch(batchId);
+      })
   }
 
   initializeBatch(){
@@ -81,6 +84,10 @@ export class CreateCourseComponent implements OnInit {
         img_url:imgUrl
       }
     })
+  }
+
+  deleteBatch(batchId:number){
+    this.batchMap.delete(batchId);
   }
 
   

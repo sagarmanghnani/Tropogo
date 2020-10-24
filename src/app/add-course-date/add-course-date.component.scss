@@ -24,6 +24,69 @@
     }
 }
 
+
+
+.input-text{
+    border: 1px solid #aeacb5;
+    padding: 10px;
+    max-width: 200px;
+}
+
+label{
+    color: var(--heading-color);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.common-margin{
+    margin-top: 10px;
+}
+
+.form-styling {
+    display: flex;
+    flex-flow: column;
+}
+
+.batch-body{
+    .select-location{
+        max-width: 200px;
+    }
+}
+
+.search-place{
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+}
+
+
+
+
+
+.input-text{
+    input:focus{
+        outline: none;
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+    .fix-input{
+        border: none;
+        width: 80%;
+    }
+}
+
+// .mat-form-flex{
+//     border: 1px solid red !important;
+// }
+
+
+
 ::ng-deep .optionSelect div.mat-select-arrow-wrapper {
     display: none;
   }
@@ -31,3 +94,7 @@
   ::ng-deep .optionSelect.mat-select {
     display: inline;
   }
+
+//   ::ng-deep .selectPlaces div.mat-form-flex{
+//       border: 1px solid red !important;
+//   }
