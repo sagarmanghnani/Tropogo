@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+:root{
+    --heading-color:#180b3d;
+    --primary-color:#155fe1;
+    --secondary-color:#5bc873;
+    --background-color:#f5f6f8;
+    --button-color:#5bc873;
+    --common-padding:10%;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+}
+
+.col-6{
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+.col-3 {
+    width: 25%;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+.col-4{
+    width: 33.33%;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
+
+.col-12{
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 10px;
+}
