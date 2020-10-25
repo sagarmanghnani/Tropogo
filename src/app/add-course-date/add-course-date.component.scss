@@ -8,6 +8,10 @@
         .datepicker-container{
             display: flex;
             align-items: center;
+
+            .date-value{
+                color: #b6b4bc;
+            }
             .datePick{
                 visibility: hidden;
                 height: 0;
@@ -28,6 +32,8 @@
     .batch-name{
         display: flex;
         align-items: center;
+        color: var(--heading-color);
+        font-weight: 500;
     }
 }
 
@@ -90,6 +96,7 @@ label{
     .fix-input{
         border: none;
         width: 80%;
+        background: transparent;
     }
 }
 

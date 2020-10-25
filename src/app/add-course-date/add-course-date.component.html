@@ -1,25 +1,25 @@
 <div class="batch-container">
     <form #form1 = "ngForm" novalidate>
-        <div class="batch-header clr-row">
+        <div class="batch-header clr-row clarity-fix">
             <div class="clr-col-3 batch-name" [ngClass] = "{'error-message':!batch.batch_valid}">
                 {{batch.batch.name}}
             </div>
                 <div class="clr-col-9 batch-header-setting" >
-                    <div class="clr-col-4 datepicker-container">
+                    <div class="clr-col-5 datepicker-container">
                         <img src="assets/ic_selectdate.png">
                         <input matInput [matDatepicker]="startdate" [(ngModel)] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" name = "start1" required>
                         <mat-datepicker #startdate  name = "startdate" [ngModel] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl name = "start2"></mat-datepicker>
-                        <button (click)="startdate.open()"> {{showDate(batch.batch.start_date)}} </button>
+                        <button (click)="startdate.open()" class="date-value"> {{showDate(batch.batch.start_date)}} </button>
                     </div>
-                    <div class="clr-col-4 datepicker-container" [ngClass] = "{'error-input':!end.valid && !batch.batch_valid}">
+                    <div class="clr-col-5 datepicker-container" [ngClass] = "{'error-input':!end.valid && !batch.batch_valid}">
                         <img src="assets/ic_selectdate.png">
                         <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" appValidateEnddate [startdate]="startDate" #end=ngModel name = "ending" required>
                         <mat-datepicker #enddate [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl name = "end1"></mat-datepicker>
-                        <button (click) = "enddate.open()"> {{showDate(batch.batch.end_date)}}</button>
+                        <button (click) = "enddate.open()" class="date-value"> {{showDate(batch.batch.end_date)}}</button>
                     </div>
                     
 
-                    <div class="clr-col-4 action-div">
+                    <div class="clr-col-2 action-div">
                         <button mat-icon-button (click)="select.open()"> 
                             <mat-icon>more_vert</mat-icon> 
                             <mat-select #select class="optionSelect">

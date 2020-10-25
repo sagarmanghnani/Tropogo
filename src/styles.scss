@@ -10,7 +10,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --secondary-color:#5bc873;
     --background-color:#f5f6f8;
     --button-color:#5bc873;
-    --common-padding:10%;
+    --common-padding:4.5em;
     --teriary-button:#197df6;
     --error-state-color:red;
 }
@@ -50,4 +50,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .error-input {
     outline: var(--error-state-color);
     border: 1px solid var(--error-state-color) !important;
+}
+
+small{
+    text-align: right;
+}
+
+.clarity-fix{
+    width: 100%;
+    margin-left: 0;
+}
+
+mat-divider{
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
 }

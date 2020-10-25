@@ -8,7 +8,8 @@
     <div class="form-container">
         <div class="course_name common-margin form-styling">
             <label> Course Name </label>
-            <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" required>  
+            <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" #name="ngModel" required [ngClass] = "{'error-input':(!name.valid && name.dirty) || !validationForCourse}"> 
+            <small *ngIf="(!name.valid && name.dirty) || !validationForCourse" class="error-message"> Add course name </small> 
         </div>
 
         <div class="gallery common-margin form-styling">
@@ -24,26 +25,48 @@
 
         <div class="aircraft-type common-margin form-styling">
             <label> Aircraft Type </label>
-            <mat-radio-group [(ngModel)] = "createCourse.aircraft_type">
+            <mat-radio-group [(ngModel)] = "createCourse.aircraft_type" #aircraft="ngModel">
                 <mat-radio-button [value] = "aircraftTypes.FixedWing"> Multi Rotar </mat-radio-button>
                 <mat-radio-button [value] = "aircraftTypes.MultiRotar" > Fixed Wing </mat-radio-button>
             </mat-radio-group>
+            <small *ngIf="(!aircraft.valid && aircraft.dirty) || !validationForCourse" class="error-message"> Select Aircraft type </small> 
         </div>
 
-        <div>
+        <div class="batch">
+            
             <div *ngIf="batches.length" >
-                <div *ngFor="let batchModified of this.batches" >
+                <div class="clr-row clarity-fix batch-heading" style="width: 100%;">
+                    <div class="clr-col-3">
+                        BATCH
+                    </div>
+
+                    <div class="clr-col-9 row">
+                        <div class="clr-col-5"> START DATE</div>
+                        <div class="clr-col-5"> END DATE </div>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div *ngFor="let batchModified of this.batches" class="batch-background">
                     <app-add-course-date [batch] = "batchModified"> </app-add-course-date>
+                    <mat-divider></mat-divider>
                 </div>
             </div>
         </div>
 
         <div>
-            <button mat-button color = "primary" (click)="addBatch()" > ADD ANOTHER COURSE DATE </button>
+            <button mat-button color = "primary" (click)="addBatch()" style="padding-left: 0;" > <mat-icon>add_circle</mat-icon> ADD ANOTHER COURSE DATE </button>
         </div>
 
-        <button (click)="validateBatches()"> Validate Batch</button>
+        <div class="course_name common-margin form-styling">
+            <label> COURSE DETAILS </label>
+            <textarea type="text" rows="3"  placeholder="Add details" class="input-text" [(ngModel)]="createCourse.description" required #description="ngModel" [ngClass] = "{'error-input':(!description.valid && description.dirty) || !validationForCourse}"></textarea>
+            <small *ngIf="(!description.valid && description.dirty) || !validationForCourse" class="error-message"> Please enter course description </small>  
+        </div>
 
-        
+        <!-- <button (click)="validateBatches()"> Validate Batch</button> -->
+    </div>
+
+    <div class="publish-container">
+        <button mat-flat-button color="primary"> Save & Publish </button>
     </div>
 </div>

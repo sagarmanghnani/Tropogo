@@ -23,6 +23,7 @@ export class CreateCourseComponent implements OnInit {
   activeBatchId:number = null;
   batches:BatchModified[] = [];
   invalid_batches:number[] = [];
+  validationForCourse:boolean = true;
   @ViewChild('imageupload') imageUpload:ElementRef
   constructor(
     public dialog: MatDialog,
