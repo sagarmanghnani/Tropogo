@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import {LanguageModelResponse} from 'src/Modals/Language.modal'
+import { Subject } from 'rxjs';
 
 declare var google: any;
 @Injectable({
@@ -13,6 +14,8 @@ export class CourseService {
   GET_LANGUAGE:string = `assets/language.json`;
   deleteBatchEvent:EventEmitter<number> = new EventEmitter();
   toggleBatchExpansionEvent:EventEmitter<number | null> = new EventEmitter();
+  validateBatches:Subject<any> = new Subject();
+  invalidBatches:EventEmitter<any> = new EventEmitter();
   constructor(
     public http:HttpClient
   ) { 

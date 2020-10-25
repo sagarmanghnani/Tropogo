@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild } from '@angular/core';
 import { Course } from 'src/Modals/Course.modal';
 import {CourseService} from '../course.service'
 import {Batch} from 'src/Modals/Batch.modal';
@@ -22,7 +22,8 @@ export class AddCourseDateComponent implements OnInit {
   languages:LanguageModel[] = []; 
   searchedLanguages:LanguageModel[] = [];
   selectedLanguageSet:Set<number> = new Set();
-
+  @ViewChild('form1', {static:false})form1;
+  @ViewChild('form2', {static:false})form2;
   deleteBatch:EventEmitter<number> = new EventEmitter();
   constructor(
     public courseService:CourseService
@@ -34,6 +35,9 @@ export class AddCourseDateComponent implements OnInit {
     this.minDate = new Date();
     this.batch.batch.location = null;
     this.getLanguage();
+    this.courseService.validateBatches.subscribe(() => {
+      this.validateBatch(this.form1, this.form2);
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -126,6 +130,7 @@ export class AddCourseDateComponent implements OnInit {
     for(let i = 0; i< forms.length;i++){
       if(!forms[i].form.valid){
         this.batch.batch_valid = false;
+        this.courseService.invalidBatches.emit(this.batch.batchId);
         return false;
       }
     }

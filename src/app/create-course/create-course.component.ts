@@ -21,7 +21,8 @@ export class CreateCourseComponent implements OnInit {
   aircraftTypes = Aircraft;
   batchMap:Map<number, BatchModified> = new Map();
   activeBatchId:number = null;
-  batches:BatchModified[] = []
+  batches:BatchModified[] = [];
+  invalid_batches:number[] = [];
   @ViewChild('imageupload') imageUpload:ElementRef
   constructor(
     public dialog: MatDialog,
@@ -38,7 +39,17 @@ export class CreateCourseComponent implements OnInit {
       });
 
       this.courseService.toggleBatchExpansionEvent.subscribe((batchId) => {
+        if(batchId){
+          if(this.batchMap.has(this.activeBatchId) && this.activeBatchId !== null){
+            let batch = this.batchMap.get(this.activeBatchId);
+            batch.isActive = false;
+          }
+        }
         this.activeBatchId = batchId;
+      })
+
+      this.courseService.invalidBatches.subscribe(batchId => {
+        this.invalid_batches.push(batchId);
       })
   }
 
@@ -99,6 +110,14 @@ export class CreateCourseComponent implements OnInit {
       return batch.batchId === batchId
     })
     this.batches.splice(batchIndex, 1);
+  }
+
+
+  validateBatches(){
+    this.courseService.validateBatches.next();
+    if(!this.invalid_batches.length){
+      console.log("everything turn to be great");
+    }
   }
 
   

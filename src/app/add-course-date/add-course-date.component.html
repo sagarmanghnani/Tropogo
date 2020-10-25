@@ -37,7 +37,7 @@
         </div>
     </form>
     <form #form2 = "ngForm">
-        <div class="batch-body clr-row" *ngIf="batch.isActive">
+        <div class="batch-body clr-row" [hidden]="!batch.isActive">
             
                 <div class="clr-offset-3 clr-col-9">
                     <div class="common-margin form-styling clr-col-6">
@@ -91,6 +91,4 @@
 
         </div>
     </form>
-
-    <button (click)="validateBatch(form1, form2)"> Validate </button>
 </div>
