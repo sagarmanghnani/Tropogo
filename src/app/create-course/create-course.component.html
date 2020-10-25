@@ -37,11 +37,11 @@
                 
                 <div *ngIf="batches.length" >
                     <div class="clr-row clarity-fix batch-heading" style="width: 100%;">
-                        <div class="clr-col-3">
+                        <div class="clr-col-2 clr-col-sm-2 clr-col-md-3 clr-col-lg-3" style="padding-left: 0;">
                             BATCH
                         </div>
 
-                        <div class="clr-col-9 row">
+                        <div class="clr-col-10 clr-col-sm-10 clr-col-md-9 clr-col-lg-9 row">
                             <div class="clr-col-5"> START DATE</div>
                             <div class="clr-col-5"> END DATE </div>
                         </div>
@@ -61,7 +61,7 @@
             <div class="course_name common-margin form-styling" [ngClass] = "{'extra-margin':!showErrorState}">
                 <label> COURSE DETAILS </label>
                 <textarea type="text" rows="3"  placeholder="Add details" class="input-text" [(ngModel)]="createCourse.description" required #description="ngModel" [ngClass] = "{'error-input':((!description.valid && description.dirty) || !validationForCourse) && !createCourse.description}" name = "desc"></textarea>
-                <small *ngIf="(!description.valid && description.dirty && !createCourse.description) || !validationForCourse" class="error-message"> Please enter course description </small>  
+                <small *ngIf="((!description.valid && description.dirty) || !validationForCourse) && !createCourse.description" class="error-message"> Please enter course description </small>  
             </div>
 
             <!-- <button (click)="validateBatches()"> Validate Batch</button> -->
