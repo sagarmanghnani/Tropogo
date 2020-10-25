@@ -51,7 +51,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .error-message {
-    color: var(--error-state-color);
+    color: var(--error-state-color) !important;
 }
 
 .error-input {

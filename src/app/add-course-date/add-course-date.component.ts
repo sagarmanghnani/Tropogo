@@ -130,9 +130,16 @@ export class AddCourseDateComponent implements OnInit {
     for(let i = 0; i< forms.length;i++){
       if(!forms[i].form.valid){
         this.batch.batch_valid = false;
+        this.batch = {...this.batch};
         this.courseService.invalidBatches.emit(this.batch.batchId);
         return false;
       }
+    }
+    if(!this.batch.batch.location){
+      this.batch.batch_valid = false;
+      this.batch = {...this.batch};
+      this.courseService.invalidBatches.emit(this.batch.batchId);
+      return false;
     }
     this.batch.batch_valid = true;
     return true;

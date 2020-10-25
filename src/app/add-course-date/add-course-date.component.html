@@ -20,17 +20,17 @@
                     
 
                     <div class="clr-col-2 action-div">
-                        <button mat-icon-button (click)="select.open()"> 
-                            <mat-icon>more_vert</mat-icon> 
+                        
+                            <mat-icon (click)="select.open()" style="cursor: pointer;">more_vert</mat-icon> 
                             <mat-select #select class="optionSelect">
                                 <mat-option (click)="resetData()" style="color: var(--button-color);"> <mat-icon>refresh</mat-icon>  Reset </mat-option>
                                 <mat-option (click)="deleteData()" style="color: red;"><mat-icon>delete</mat-icon> Delete </mat-option>
                             </mat-select>
-                        </button>
+                        
             
-                        <button mat-icon-button (click)="toggleExpansion()">
-                            <mat-icon color="primary">{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
-                        </button>
+                        
+                            <mat-icon color="primary" style="cursor: pointer;" (click)="toggleExpansion()">{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
+                        
                     </div>
                 </div>
             
@@ -79,8 +79,8 @@
                 </div>
 
                 <div class="clr-offset-3 clr-col-9 clr-row">
-                    <div class="clr-col-12">
-                        Is this a weekend course ? 
+                    <div class="clr-col-12 weekend-course">
+                        <span class="hide-desktop-content"> Is this a </span> weekend course ? 
                         <mat-radio-group [(ngModel)] = "batch.batch.weekend_course" name = "weekend" required>
                             <mat-radio-button value = "true" > YES </mat-radio-button>
                             <mat-radio-button value = "false"> NO </mat-radio-button>

@@ -9,8 +9,8 @@
         <div class="form-container">
             <div class="course_name common-margin form-styling">
                 <label> Course Name </label>
-                <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" #name="ngModel" required [ngClass] = "{'error-input':(!name.valid && name.dirty) || !validationForCourse}" name = "name"> 
-                <small *ngIf="(!name.valid && name.dirty) || !validationForCourse" class="error-message"> Add course name </small> 
+                <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" #name="ngModel" required [ngClass] = "{'error-input':((!name.valid && name.dirty) || !validationForCourse) && !createCourse.name}" name = "name"> 
+                <small *ngIf="((!name.valid && name.dirty) || !validationForCourse) && !createCourse.name" class="error-message"> Add course name </small> 
             </div>
 
             <div class="gallery common-margin form-styling">
@@ -19,7 +19,7 @@
             </div>
 
             <div *ngIf="createCourse?.image_urls?.length" class="image-container" >
-                <div *ngFor="let imageSrc of createCourse?.image_urls;let i = index" class="image-width" >
+                <div *ngFor="let imageSrc of createCourse?.image_urls;let i = index" class="image-width" (click)="createZoomModal(imageSrc)" >
                     <img [src] = "imageSrc">
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <mat-radio-button [value] = "aircraftTypes.FixedWing"> Multi Rotar </mat-radio-button>
                     <mat-radio-button [value] = "aircraftTypes.MultiRotar" > Fixed Wing </mat-radio-button>
                 </mat-radio-group>
-                <small *ngIf="(!aircraft.valid && aircraft.dirty) || !validationForCourse" class="error-message"> Select Aircraft type </small> 
+                <small *ngIf="((!aircraft.valid && aircraft.dirty) || !validationForCourse) && !createCourse.aircraft_type" class="error-message"> Select Aircraft type </small> 
             </div>
 
             <div class="batch">

@@ -9,6 +9,7 @@ import {Aircraft} from '../../Modals/airtcraft.enum';
 import {UtilService} from 'src/util.service'
 import { CourseService } from '../course.service';
 import { Batch } from 'src/Modals/Batch.modal';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-course',
@@ -31,7 +32,8 @@ export class CreateCourseComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public domSanitizer:DomSanitizer,
-    public courseService:CourseService
+    public courseService:CourseService,
+    public snackbar:MatSnackBar
   ) { 
     Aircraft.MultiRotar
   }
@@ -105,8 +107,12 @@ export class CreateCourseComponent implements OnInit {
   }
 
   createZoomModal(imgUrl:string){
+    let width = '250px'
+    if(window.innerWidth > 750){
+      width = '600px'
+    }
     let zoomModal = this.dialog.open(ImageZoomComponent, {
-      width: '250px',
+      width: width,
       data: {
         img_url:imgUrl
       }
@@ -123,6 +129,7 @@ export class CreateCourseComponent implements OnInit {
 
 
   validateBatchesAndCourses(){
+    this.invalid_batches = [];
     this.courseService.validateBatches.next();
     if(!this.invalid_batches.length){
       if(!this.form.form.valid){
@@ -130,6 +137,11 @@ export class CreateCourseComponent implements OnInit {
         this.validationForCourse = false;
         return false;
       }else{
+        this.showErrorState = false;
+        this.validationForCourse = true;
+        this.snackbar.open("Course generated successfully", null, {
+          duration:2000
+        })
         return true;
       }
     }else{

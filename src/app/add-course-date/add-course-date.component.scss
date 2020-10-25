@@ -1,6 +1,8 @@
 
 
 .batch-header{
+    padding-top: 5px;
+    padding-bottom: 5px;
     .batch-header-setting{
         display: flex;
         align-items: center;
@@ -27,6 +29,11 @@
         .action-div{
             display: flex;
             justify-content: flex-end;
+            padding-left: 0;
+            padding-right: 0;
+            mat-select{
+                width: 0;
+            }
         }
     }
     .batch-name{
@@ -100,6 +107,10 @@ label{
     }
 }
 
+.weekend-course{
+    margin-top: 10px;
+    color: #8e8b96;
+}
 // .mat-form-flex{
 //     border: 1px solid red !important;
 // }
@@ -118,6 +129,8 @@ label{
 //       border: 1px solid red !important;
 //   }
 
-@media screen and (max-width:576px){
-    
+@media screen and (max-width:940px){
+    .hide-desktop-content{
+        display: none;
+    }
 }

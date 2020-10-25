@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-image-zoom',
@@ -7,14 +8,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./image-zoom.component.scss']
 })
 export class ImageZoomComponent implements OnInit {
-  imageSrc:string = '';
+  imageSrc;
   constructor(
     public dialogRef: MatDialogRef<ImageZoomComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public domSanitizer:DomSanitizer,
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data, "data");
+    this.imageSrc = this.data.img_url.changingThisBreaksApplicationSecurity;
+    this.imageSrc =  this.domSanitizer.bypassSecurityTrustUrl(this.imageSrc)
+    
   }
 
 }

@@ -23,6 +23,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PositivecostDirective } from './positivecost.directive';
 import { ValidateEnddateDirective } from './validate-enddate.directive';
 import { ErrorStateComponent } from './error-state/error-state.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ErrorStateComponent } from './error-state/error-state.component';
     MatNativeDateModule,
     MatIconModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     HttpClient

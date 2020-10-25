@@ -1,3 +1,5 @@
+import { Batch } from './Batch.modal';
+
 export class Course {
     course_id:number;
     course_cost:number;
@@ -5,4 +7,5 @@ export class Course {
     name:string;
     image_urls:string[] = [];
     description:string;
+    Batches:Batch[]
 }
