@@ -13,7 +13,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --common-padding:4.5em;
     --teriary-button:#197df6;
     --error-state-color:red;
+    --error-state-background:#f9e5e5;
+
+    @media screen and (max-width:576px){
+        --common-padding:0.5em;
+    }
 }
+
+
 
 .row{
     display: flex;

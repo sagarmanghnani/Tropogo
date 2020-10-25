@@ -1,0 +1,17 @@
+.error {
+    background: var(--error-state-background);
+    display: flex;
+    align-items: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    p{
+        margin-bottom: 0;
+        color: red;
+    }
+    margin-top: 5px;
+    mat-icon{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    margin-bottom: 90px;
+}

@@ -24,6 +24,9 @@ export class CreateCourseComponent implements OnInit {
   batches:BatchModified[] = [];
   invalid_batches:number[] = [];
   validationForCourse:boolean = true;
+  showErrorState:boolean = false;
+  errorMsg:string;
+  @ViewChild('form') form;
   @ViewChild('imageupload') imageUpload:ElementRef
   constructor(
     public dialog: MatDialog,
@@ -52,6 +55,8 @@ export class CreateCourseComponent implements OnInit {
       this.courseService.invalidBatches.subscribe(batchId => {
         this.invalid_batches.push(batchId);
       })
+      this.errorMsg = `Fill in the required information to proceed`
+      
   }
 
   initializeBatch(){
@@ -61,8 +66,11 @@ export class CreateCourseComponent implements OnInit {
   uploadImageFile(event){
      return new Promise((resolve, reject) => {
       let image = event.target.files[0];
-      let imageUrl =  this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image)) ;
-      resolve(imageUrl)
+      if(image){
+        let imageUrl =  this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image)) ;
+        resolve(imageUrl)
+      }
+      reject();
     })
   }
 
@@ -114,11 +122,25 @@ export class CreateCourseComponent implements OnInit {
   }
 
 
-  validateBatches(){
+  validateBatchesAndCourses(){
     this.courseService.validateBatches.next();
     if(!this.invalid_batches.length){
-      console.log("everything turn to be great");
+      if(!this.form.form.valid){
+        this.showErrorState = true;
+        this.validationForCourse = false;
+        return false;
+      }else{
+        return true;
+      }
+    }else{
+      this.showErrorState = true;
+      this.validationForCourse = false;
+      return false;
     }
+  }
+
+  hideErrorState(){
+    this.showErrorState = false;
   }
 
   

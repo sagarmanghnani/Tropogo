@@ -2,6 +2,8 @@
     margin-top: 20px;
     padding-left: var(--common-padding);
     padding-right: var(--common-padding);
+    max-height: 100vh;
+    overflow: scroll;
     .header-text{
         color: var(--heading-color);
         font-size: 1.8rem;
@@ -72,7 +74,7 @@
     }
 
     .publish-container{
-        position: absolute;
+        position: fixed;
         padding-top: 15px;
         padding-bottom: 15px;
         width: 100%;
@@ -88,12 +90,27 @@
             padding-top: 5px;
             padding-bottom: 5px;
             max-width: 180px;
-            font-size: 20px;
+            font-size: 20px !important;
             margin-right: 30px;
         }
     }
 
-    
+    @media screen and (max-width:576px){
+        font-size: 12px;
+
+        .cost-input{
+            max-width: 75%;
+        }
+    }
+
+    .extra-margin{
+        margin-bottom: 90px;
+    }
+
+    .disable-image-upload{
+        pointer-events: none;
+        opacity: 0.5;
+    }
 
     
 }

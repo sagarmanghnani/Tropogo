@@ -1,10 +1,10 @@
 <div class="batch-container">
     <form #form1 = "ngForm" novalidate>
         <div class="batch-header clr-row clarity-fix">
-            <div class="clr-col-3 batch-name" [ngClass] = "{'error-message':!batch.batch_valid}">
+            <div class="clr-col-2 clr-col-sm-2 clr-col-md-3 clr-col-lg-3 batch-name" [ngClass] = "{'error-message':!batch.batch_valid}">
                 {{batch.batch.name}}
             </div>
-                <div class="clr-col-9 batch-header-setting" >
+                <div class="clr-col-10 clr-col-sm-10 clr-col-md-9 clr-col-lg-9 batch-header-setting" >
                     <div class="clr-col-5 datepicker-container">
                         <img src="assets/ic_selectdate.png">
                         <input matInput [matDatepicker]="startdate" [(ngModel)] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" name = "start1" required>
@@ -23,8 +23,8 @@
                         <button mat-icon-button (click)="select.open()"> 
                             <mat-icon>more_vert</mat-icon> 
                             <mat-select #select class="optionSelect">
-                                <mat-option (click)="resetData()"> Reset </mat-option>
-                                <mat-option (click)="deleteData()"> Delete </mat-option>
+                                <mat-option (click)="resetData()" style="color: var(--button-color);"> <mat-icon>refresh</mat-icon>  Reset </mat-option>
+                                <mat-option (click)="deleteData()" style="color: red;"><mat-icon>delete</mat-icon> Delete </mat-option>
                             </mat-select>
                         </button>
             
@@ -40,7 +40,7 @@
         <div class="batch-body clr-row" [hidden]="!batch.isActive">
             
                 <div class="clr-offset-3 clr-col-9">
-                    <div class="common-margin form-styling clr-col-6">
+                    <div class="common-margin form-styling clr-col-12 clr-col-sm-6 clr-col-md-6 clr-col-lg-6">
                         <label> Course Location </label>
                         <mat-form-field class="select-location">
                             <mat-label> Search Location </mat-label>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="clr-offset-3 clr-col-9 clr-row">
-                    <div class="common-margin form-styling clr-col-6">
+                    <div class="common-margin form-styling clr-col-12 clr-col-sm-6 clr-col-md-6 clr-col-lg-6 ">
                         <label> Course Language </label>
                         <mat-form-field class="select-location">
                             <mat-label> Search Language </mat-label>
@@ -65,11 +65,11 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="common-margin form-styling clr-col-6">
+                    <div class="common-margin form-styling clr-col-12 clr-col-sm-6 clr-col-md-6 clr-col-lg-6">
                         <label> Course Cost(Ex GST) </label>
                         <div class="input-text" [ngClass] = "{'error-input':!cost.valid && !batch.batch_valid}">
                             <span> Rs </span>
-                            <input type="number" [(ngModel)]="batch.batch.cost" class="fix-input" appPositivecost #cost=ngModel name = "costs" required>
+                            <input type="number " [(ngModel)]="batch.batch.cost" class="fix-input cost-input" appPositivecost #cost=ngModel name = "costs" required>
                         </div>
 
                         <small *ngIf="!batch.batch_valid && (batch.batch.cost && !cost.valid)" class="error-message">

@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PositivecostDirective } from './positivecost.directive';
 import { ValidateEnddateDirective } from './validate-enddate.directive';
+import { ErrorStateComponent } from './error-state/error-state.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ValidateEnddateDirective } from './validate-enddate.directive';
     ImageZoomComponent,
     AddCourseDateComponent,
     PositivecostDirective,
-    ValidateEnddateDirective
+    ValidateEnddateDirective,
+    ErrorStateComponent
   ],
   imports: [
     BrowserModule,

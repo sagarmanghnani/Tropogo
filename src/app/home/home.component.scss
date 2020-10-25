@@ -1,4 +1,13 @@
 .right-pane{
     background: #f5f6fa;
+    img{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:576px){
+    .right-pane{
+        display: none;
+    }
 }
 

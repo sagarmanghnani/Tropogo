@@ -1,72 +1,78 @@
 <div class="course-container">
-    <div class="heading">
-        <h1 class="header-text"> Add course details </h1>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="form-container">
-        <div class="course_name common-margin form-styling">
-            <label> Course Name </label>
-            <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" #name="ngModel" required [ngClass] = "{'error-input':(!name.valid && name.dirty) || !validationForCourse}"> 
-            <small *ngIf="(!name.valid && name.dirty) || !validationForCourse" class="error-message"> Add course name </small> 
+    <form #form = "ngForm">
+        <div class="heading">
+            <h1 class="header-text"> Add course details </h1>
         </div>
 
-        <div class="gallery common-margin form-styling">
-            <label> Previous course gallery <span (click)="uploadImage()"> <img src = "assets/ic_upload.png"> UPLOAD </span> </label>
-            <input type="file" accept="image/*" name = "image" (change) = "addImage($event)" style="display: none;" #imageupload >
-        </div>
+        <mat-divider></mat-divider>
 
-        <div *ngIf="createCourse?.image_urls?.length" class="image-container" >
-            <div *ngFor="let imageSrc of createCourse?.image_urls;let i = index" class="image-width" >
-                <img [src] = "imageSrc">
+        <div class="form-container">
+            <div class="course_name common-margin form-styling">
+                <label> Course Name </label>
+                <input type="text" placeholder="Add course name" class="input-text" [(ngModel)]="createCourse.name" #name="ngModel" required [ngClass] = "{'error-input':(!name.valid && name.dirty) || !validationForCourse}" name = "name"> 
+                <small *ngIf="(!name.valid && name.dirty) || !validationForCourse" class="error-message"> Add course name </small> 
             </div>
-        </div>
 
-        <div class="aircraft-type common-margin form-styling">
-            <label> Aircraft Type </label>
-            <mat-radio-group [(ngModel)] = "createCourse.aircraft_type" #aircraft="ngModel">
-                <mat-radio-button [value] = "aircraftTypes.FixedWing"> Multi Rotar </mat-radio-button>
-                <mat-radio-button [value] = "aircraftTypes.MultiRotar" > Fixed Wing </mat-radio-button>
-            </mat-radio-group>
-            <small *ngIf="(!aircraft.valid && aircraft.dirty) || !validationForCourse" class="error-message"> Select Aircraft type </small> 
-        </div>
+            <div class="gallery common-margin form-styling">
+                <label> Previous course gallery <span (click)="uploadImage()" [ngClass] = "{'disable-image-upload':createCourse?.image_urls.length >= 5}" > <img src = "assets/ic_upload.png"> UPLOAD </span> </label>
+                <input type="file" accept="image/*" name = "image" (change) = "addImage($event)" style="display: none;" #imageupload [disabled] = "createCourse?.image_urls.length >= 5" > 
+            </div>
 
-        <div class="batch">
-            
-            <div *ngIf="batches.length" >
-                <div class="clr-row clarity-fix batch-heading" style="width: 100%;">
-                    <div class="clr-col-3">
-                        BATCH
-                    </div>
-
-                    <div class="clr-col-9 row">
-                        <div class="clr-col-5"> START DATE</div>
-                        <div class="clr-col-5"> END DATE </div>
-                    </div>
+            <div *ngIf="createCourse?.image_urls?.length" class="image-container" >
+                <div *ngFor="let imageSrc of createCourse?.image_urls;let i = index" class="image-width" >
+                    <img [src] = "imageSrc">
                 </div>
-                <mat-divider></mat-divider>
-                <div *ngFor="let batchModified of this.batches" class="batch-background">
-                    <app-add-course-date [batch] = "batchModified"> </app-add-course-date>
+            </div>
+
+            <div class="aircraft-type common-margin form-styling">
+                <label> Aircraft Type </label>
+                <mat-radio-group [(ngModel)] = "createCourse.aircraft_type" #aircraft="ngModel" name="aircrafts">
+                    <mat-radio-button [value] = "aircraftTypes.FixedWing"> Multi Rotar </mat-radio-button>
+                    <mat-radio-button [value] = "aircraftTypes.MultiRotar" > Fixed Wing </mat-radio-button>
+                </mat-radio-group>
+                <small *ngIf="(!aircraft.valid && aircraft.dirty) || !validationForCourse" class="error-message"> Select Aircraft type </small> 
+            </div>
+
+            <div class="batch">
+                
+                <div *ngIf="batches.length" >
+                    <div class="clr-row clarity-fix batch-heading" style="width: 100%;">
+                        <div class="clr-col-3">
+                            BATCH
+                        </div>
+
+                        <div class="clr-col-9 row">
+                            <div class="clr-col-5"> START DATE</div>
+                            <div class="clr-col-5"> END DATE </div>
+                        </div>
+                    </div>
                     <mat-divider></mat-divider>
+                    <div *ngFor="let batchModified of this.batches" [ngClass] = "{'batch-background': (batchModified.batchId === activeBatchId || (invalid_batches.indexOf(activeBatchId) != -1))}">
+                        <app-add-course-date [batch] = "batchModified"> </app-add-course-date>
+                        <mat-divider></mat-divider>
+                    </div>
                 </div>
             </div>
+
+            <div>
+                <button mat-button color = "primary" (click)="addBatch()" style="padding-left: 0;" > <mat-icon>add_circle</mat-icon> ADD ANOTHER COURSE DATE </button>
+            </div>
+
+            <div class="course_name common-margin form-styling" [ngClass] = "{'extra-margin':!showErrorState}">
+                <label> COURSE DETAILS </label>
+                <textarea type="text" rows="3"  placeholder="Add details" class="input-text" [(ngModel)]="createCourse.description" required #description="ngModel" [ngClass] = "{'error-input':((!description.valid && description.dirty) || !validationForCourse) && !createCourse.description}" name = "desc"></textarea>
+                <small *ngIf="(!description.valid && description.dirty && !createCourse.description) || !validationForCourse" class="error-message"> Please enter course description </small>  
+            </div>
+
+            <!-- <button (click)="validateBatches()"> Validate Batch</button> -->
+        </div>
+        
+        <div [hidden] = "!showErrorState">
+            <app-error-state (closeErroAlert) = "hideErrorState()" [msg] = "errorMsg" > </app-error-state>
         </div>
 
-        <div>
-            <button mat-button color = "primary" (click)="addBatch()" style="padding-left: 0;" > <mat-icon>add_circle</mat-icon> ADD ANOTHER COURSE DATE </button>
+        <div class="publish-container clr-col-md-7 clr-col-lg-7 clr-col-12 clr-col-sm-12">
+            <button mat-flat-button color="primary" (click)="validateBatchesAndCourses()"> Save & Publish </button>
         </div>
-
-        <div class="course_name common-margin form-styling">
-            <label> COURSE DETAILS </label>
-            <textarea type="text" rows="3"  placeholder="Add details" class="input-text" [(ngModel)]="createCourse.description" required #description="ngModel" [ngClass] = "{'error-input':(!description.valid && description.dirty) || !validationForCourse}"></textarea>
-            <small *ngIf="(!description.valid && description.dirty) || !validationForCourse" class="error-message"> Please enter course description </small>  
-        </div>
-
-        <!-- <button (click)="validateBatches()"> Validate Batch</button> -->
-    </div>
-
-    <div class="publish-container">
-        <button mat-flat-button color="primary"> Save & Publish </button>
-    </div>
+    </form>
 </div>
