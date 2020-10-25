@@ -110,6 +110,15 @@ export class AddCourseDateComponent implements OnInit {
     this.courseService.deleteBatch(this.batch.batchId);
   }
 
+  toggleExpansion(){
+    this.batch.isActive = !this.batch.isActive;
+    if(!this.batch.isActive){
+      this.courseService.toggleBatchExpansion(null);
+    }else{
+      this.courseService.toggleBatchExpansion(this.batch.batchId);
+    }
+  }
+
   
 
 

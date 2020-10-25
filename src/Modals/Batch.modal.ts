@@ -7,4 +7,5 @@ export class Batch {
     location:string;
     language_ids:number[];
     cost:number;
+    weekend_course:boolean;
 }

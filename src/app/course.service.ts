@@ -12,6 +12,7 @@ export class CourseService {
   googleAutoComplete:any;
   GET_LANGUAGE:string = `assets/language.json`;
   deleteBatchEvent:EventEmitter<number> = new EventEmitter();
+  toggleBatchExpansionEvent:EventEmitter<number | null> = new EventEmitter();
   constructor(
     public http:HttpClient
   ) { 
@@ -49,6 +50,10 @@ export class CourseService {
 
    deleteBatch(batch_id:number){
     this.deleteBatchEvent.emit(batch_id);
+  }
+
+  toggleBatchExpansion(batch_id:number | null){
+    this.toggleBatchExpansionEvent.emit(batch_id);
   }
 
 

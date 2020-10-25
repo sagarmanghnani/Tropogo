@@ -1,7 +1,7 @@
 <div class="batch-container">
     <div class="batch-header clr-row">
         <div class="clr-col-3">
-            Batch {{courseService.batchNumber}}
+            {{batch.batch.name}}
         </div>
         <div class="clr-col-9 batch-header-setting" >
             <div class="clr-col-4 datepicker-container">
@@ -27,8 +27,8 @@
                     </mat-select>
                 </button>
     
-                <button mat-icon-button >
-                    <mat-icon>{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
+                <button mat-icon-button (click)="toggleExpansion()">
+                    <mat-icon color="primary">{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
                 </button>
             </div>
         </div>
@@ -70,6 +70,16 @@
                 <small [hidden]="cost.valid" class="error-message">
                     Cost must be positive
                 </small>
+            </div>
+        </div>
+
+        <div class="clr-offset-3 clr-col-9 clr-row">
+            <div class="clr-col-12">
+                Is this a weekend course ? 
+                <mat-radio-group [(ngModel)] = "batch.batch.weekend_course">
+                    <mat-radio-button value = "true" > YES </mat-radio-button>
+                    <mat-radio-button value = "false"> NO </mat-radio-button>
+                </mat-radio-group>
             </div>
         </div>
 

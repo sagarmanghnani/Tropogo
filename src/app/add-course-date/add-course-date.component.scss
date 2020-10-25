@@ -51,6 +51,11 @@ label{
     .select-location{
         max-width: 200px;
     }
+    mat-radio-group{
+        :first-child{
+            margin-right: 10px;
+        }
+    }
 }
 
 .search-place{

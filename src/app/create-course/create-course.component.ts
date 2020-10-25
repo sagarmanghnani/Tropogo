@@ -33,6 +33,10 @@ export class CreateCourseComponent implements OnInit {
       this.initializeBatch();
       this.courseService.deleteBatchEvent.subscribe((batchId) => {
         this.deleteBatch(batchId);
+      });
+
+      this.courseService.toggleBatchExpansionEvent.subscribe((batchId) => {
+        this.activeBatchId = batchId;
       })
   }
 
