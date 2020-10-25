@@ -11,7 +11,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --background-color:#f5f6f8;
     --button-color:#5bc873;
     --common-padding:10%;
-    --teriary-button:#197df6
+    --teriary-button:#197df6;
+    --error-state-color:red;
 }
 
 .row{
@@ -40,4 +41,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100%;
     box-sizing: border-box;
     padding-right: 10px;
+}
+
+.error-message {
+    color: var(--error-state-color);
+}
+
+.error-input {
+    outline: var(--error-state-color);
+    border: 1px solid var(--error-state-color) !important;
 }

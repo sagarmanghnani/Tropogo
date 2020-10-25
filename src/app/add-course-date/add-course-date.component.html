@@ -10,12 +10,13 @@
                 <mat-datepicker #startdate  name = "startdate" [ngModel] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl></mat-datepicker>
                 <button (click)="startdate.open()"> {{showDate(batch.batch.start_date)}} </button>
             </div>
-            <div class="clr-col-4 datepicker-container">
+            <div class="clr-col-4 datepicker-container" [ngClass] = "{'error-input':!end.valid}">
                 <img src="assets/ic_selectdate.png">
-                <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick">
+                <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" appValidateEnddate [startdate]="startDate" #end=ngModel>
                 <mat-datepicker #enddate [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl></mat-datepicker>
                 <button (click) = "enddate.open()"> {{showDate(batch.batch.end_date)}}</button>
             </div>
+            
 
             <div class="clr-col-4 action-div">
                 <button mat-icon-button (click)="select.open()"> 
@@ -61,10 +62,14 @@
 
             <div class="common-margin form-styling clr-col-6">
                 <label> Course Cost(Ex GST) </label>
-                <div class="input-text">
+                <div class="input-text" [ngClass] = "{'error-input':!cost.valid}">
                     <span> Rs </span>
-                    <input type="number" [(ngModel)]="batch.batch.cost" class="fix-input">
+                    <input type="number" [(ngModel)]="batch.batch.cost" class="fix-input" appPositivecost #cost=ngModel>
                 </div>
+
+                <small [hidden]="cost.valid" class="error-message">
+                    Cost must be positive
+                </small>
             </div>
         </div>
 

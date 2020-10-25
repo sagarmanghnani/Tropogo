@@ -4,6 +4,7 @@ import {CourseService} from '../course.service'
 import {Batch} from 'src/Modals/Batch.modal';
 import { BatchModified } from 'src/Modals/BatchModified.modal';
 import {LanguageModel} from 'src/Modals/Language.modal'
+import { UtilService } from 'src/util.service';
 @Component({
   selector: 'app-add-course-date',
   templateUrl: './add-course-date.component.html',
@@ -40,7 +41,7 @@ export class AddCourseDateComponent implements OnInit {
 
   showDate(dateTime:string){
     if(dateTime){
-      return dateTime;
+      return UtilService.toDDMMMFormatInDefinedFormat(dateTime);
     }else{
       return `DD MMM`
     }
@@ -50,10 +51,10 @@ export class AddCourseDateComponent implements OnInit {
 
     if(dateType === 'start'){
       let date = new Date(this.startDate);
-      this.batch.batch.start_date = `${date.getDate()}-${date.getMonth() + 1}`;
+      this.batch.batch.start_date = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     }else{
       let date = new Date(this.endDate);
-      this.batch.batch.end_date = `${date.getDate()}-${date.getMonth() + 1}`;
+      this.batch.batch.end_date = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     }
   }
 
@@ -108,6 +109,8 @@ export class AddCourseDateComponent implements OnInit {
   deleteData(){
     this.courseService.deleteBatch(this.batch.batchId);
   }
+
+  
 
 
   

@@ -20,6 +20,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PositivecostDirective } from './positivecost.directive';
+import { ValidateEnddateDirective } from './validate-enddate.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     CreateCourseComponent,
     HomeComponent,
     ImageZoomComponent,
-    AddCourseDateComponent
+    AddCourseDateComponent,
+    PositivecostDirective,
+    ValidateEnddateDirective
   ],
   imports: [
     BrowserModule,
