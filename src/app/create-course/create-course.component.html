@@ -31,9 +31,9 @@
         </div>
 
         <div>
-            <div *ngIf="batchMap.size" >
-                <div *ngFor="let batchModified of this.batchMap |keyvalue" >
-                    <app-add-course-date [batch] = "batchModified.value"> </app-add-course-date>
+            <div *ngIf="batches.length" >
+                <div *ngFor="let batchModified of this.batches" >
+                    <app-add-course-date [batch] = "batchModified"> </app-add-course-date>
                 </div>
             </div>
         </div>

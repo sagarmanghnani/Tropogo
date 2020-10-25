@@ -1,26 +1,33 @@
 
 
-.batch-header-setting{
-    display: flex;
-    align-items: center;
-    .datepicker-container{
+.batch-header{
+    .batch-header-setting{
         display: flex;
         align-items: center;
-        .datePick{
-            visibility: hidden;
-            height: 0;
-            width: 0;
+        
+        .datepicker-container{
+            display: flex;
+            align-items: center;
+            .datePick{
+                visibility: hidden;
+                height: 0;
+                width: 0;
+            }
+        
+            button{
+                border: none;
+                background: transparent;
+            }
         }
     
-        button{
-            border: none;
-            background: transparent;
+        .action-div{
+            display: flex;
+            justify-content: flex-end;
         }
     }
-
-    .action-div{
+    .batch-name{
         display: flex;
-        justify-content: flex-end;
+        align-items: center;
     }
 }
 

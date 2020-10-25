@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {Aircraft} from '../../Modals/airtcraft.enum';
 import {UtilService} from 'src/util.service'
 import { CourseService } from '../course.service';
+import { Batch } from 'src/Modals/Batch.modal';
 
 @Component({
   selector: 'app-create-course',
@@ -20,6 +21,7 @@ export class CreateCourseComponent implements OnInit {
   aircraftTypes = Aircraft;
   batchMap:Map<number, BatchModified> = new Map();
   activeBatchId:number = null;
+  batches:BatchModified[] = []
   @ViewChild('imageupload') imageUpload:ElementRef
   constructor(
     public dialog: MatDialog,
@@ -67,6 +69,7 @@ export class CreateCourseComponent implements OnInit {
     this.closePreviousBatch();
     this.activeBatchId = batch.batchId
     this.batchMap.set(batch.batchId, batch);
+    this.batches.push(batch);
     return batch
   }
 
@@ -92,7 +95,16 @@ export class CreateCourseComponent implements OnInit {
 
   deleteBatch(batchId:number){
     this.batchMap.delete(batchId);
+    let batchIndex = this.batches.findIndex((batch) => {
+      return batch.batchId === batchId
+    })
+    this.batches.splice(batchIndex, 1);
   }
+
+  
+
+
+  
 
   
 

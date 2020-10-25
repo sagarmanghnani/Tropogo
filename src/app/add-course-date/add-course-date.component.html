@@ -1,87 +1,96 @@
 <div class="batch-container">
-    <div class="batch-header clr-row">
-        <div class="clr-col-3">
-            {{batch.batch.name}}
-        </div>
-        <div class="clr-col-9 batch-header-setting" >
-            <div class="clr-col-4 datepicker-container">
-                <img src="assets/ic_selectdate.png">
-                <input matInput [matDatepicker]="startdate" [(ngModel)] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick">
-                <mat-datepicker #startdate  name = "startdate" [ngModel] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl></mat-datepicker>
-                <button (click)="startdate.open()"> {{showDate(batch.batch.start_date)}} </button>
+    <form #form1 = "ngForm" novalidate>
+        <div class="batch-header clr-row">
+            <div class="clr-col-3 batch-name" [ngClass] = "{'error-message':!batch.batch_valid}">
+                {{batch.batch.name}}
             </div>
-            <div class="clr-col-4 datepicker-container" [ngClass] = "{'error-input':!end.valid}">
-                <img src="assets/ic_selectdate.png">
-                <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" appValidateEnddate [startdate]="startDate" #end=ngModel>
-                <mat-datepicker #enddate [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl></mat-datepicker>
-                <button (click) = "enddate.open()"> {{showDate(batch.batch.end_date)}}</button>
-            </div>
+                <div class="clr-col-9 batch-header-setting" >
+                    <div class="clr-col-4 datepicker-container">
+                        <img src="assets/ic_selectdate.png">
+                        <input matInput [matDatepicker]="startdate" [(ngModel)] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" name = "start1" required>
+                        <mat-datepicker #startdate  name = "startdate" [ngModel] = "startDate" (ngModelChange) = "assignDate('start')" ngDefaultControl name = "start2"></mat-datepicker>
+                        <button (click)="startdate.open()"> {{showDate(batch.batch.start_date)}} </button>
+                    </div>
+                    <div class="clr-col-4 datepicker-container" [ngClass] = "{'error-input':!end.valid && !batch.batch_valid}">
+                        <img src="assets/ic_selectdate.png">
+                        <input matInput [matDatepicker]="enddate" [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl [min] = "minDate" [max] = "maxDate" class="datePick" appValidateEnddate [startdate]="startDate" #end=ngModel name = "ending" required>
+                        <mat-datepicker #enddate [(ngModel)] = "endDate" (ngModelChange) = "assignDate('end')" ngDefaultControl name = "end1"></mat-datepicker>
+                        <button (click) = "enddate.open()"> {{showDate(batch.batch.end_date)}}</button>
+                    </div>
+                    
+
+                    <div class="clr-col-4 action-div">
+                        <button mat-icon-button (click)="select.open()"> 
+                            <mat-icon>more_vert</mat-icon> 
+                            <mat-select #select class="optionSelect">
+                                <mat-option (click)="resetData()"> Reset </mat-option>
+                                <mat-option (click)="deleteData()"> Delete </mat-option>
+                            </mat-select>
+                        </button>
             
-
-            <div class="clr-col-4 action-div">
-                <button mat-icon-button (click)="select.open()"> 
-                    <mat-icon>more_vert</mat-icon> 
-                    <mat-select #select class="optionSelect">
-                        <mat-option (click)="resetData()"> Reset </mat-option>
-                        <mat-option (click)="deleteData()"> Delete </mat-option>
-                    </mat-select>
-                </button>
-    
-                <button mat-icon-button (click)="toggleExpansion()">
-                    <mat-icon color="primary">{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
-                </button>
-            </div>
+                        <button mat-icon-button (click)="toggleExpansion()">
+                            <mat-icon color="primary">{{batch.isActive ? 'expand_less':'expand_more'}}</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            
         </div>
-    </div>
-    <div class="batch-body clr-row" *ngIf="batch.isActive">
-        <div class="clr-offset-3 clr-col-9">
-            <div class="common-margin form-styling clr-col-6">
-                <label> Course Location </label>
-                <mat-form-field class="select-location">
-                    <mat-label> Search Location </mat-label>
-                    <mat-select class="selectPlaces" [(ngModel)] = "batch.batch.location">
-                        <input (input) = "searchPlaces($event)" placeholder="Search Location" [value] = "this.batch.batch.location" class="search-place">
-                        <mat-option value = ""> None </mat-option>
-                        <mat-option *ngFor="let autoComplete of autoCompleteSuggestions" [value] = "autoComplete.terms[0].value"> {{autoComplete.description}} </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div class="clr-offset-3 clr-col-9 clr-row">
-            <div class="common-margin form-styling clr-col-6">
-                <label> Course Language </label>
-                <mat-form-field class="select-location">
-                    <mat-label> Search Language </mat-label>
-                    <mat-select class="selectPlaces" [(ngModel)] = "batch.batch.language_ids" multiple>
-                        <input (input) = "searchLanguage($event)" placeholder="Search language" class="search-place">
-                        <mat-option *ngFor="let language of searchedLanguages" [value] = "language.id"> {{language.language}} </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div class="common-margin form-styling clr-col-6">
-                <label> Course Cost(Ex GST) </label>
-                <div class="input-text" [ngClass] = "{'error-input':!cost.valid}">
-                    <span> Rs </span>
-                    <input type="number" [(ngModel)]="batch.batch.cost" class="fix-input" appPositivecost #cost=ngModel>
+    </form>
+    <form #form2 = "ngForm">
+        <div class="batch-body clr-row" *ngIf="batch.isActive">
+            
+                <div class="clr-offset-3 clr-col-9">
+                    <div class="common-margin form-styling clr-col-6">
+                        <label> Course Location </label>
+                        <mat-form-field class="select-location">
+                            <mat-label> Search Location </mat-label>
+                            <mat-select class="selectPlaces" [(ngModel)] = "batch.batch.location" name = "location">
+                                <input (input) = "searchPlaces($event)" placeholder="Search Location" [value] = "this.batch.batch.location" class="search-place" required>
+                                <mat-option value = ""> None </mat-option>
+                                <mat-option *ngFor="let autoComplete of autoCompleteSuggestions" [value] = "autoComplete.terms[0].value"> {{autoComplete.description}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
 
-                <small [hidden]="cost.valid" class="error-message">
-                    Cost must be positive
-                </small>
-            </div>
-        </div>
+                <div class="clr-offset-3 clr-col-9 clr-row">
+                    <div class="common-margin form-styling clr-col-6">
+                        <label> Course Language </label>
+                        <mat-form-field class="select-location">
+                            <mat-label> Search Language </mat-label>
+                            <mat-select class="selectPlaces" [(ngModel)] = "batch.batch.language_ids" multiple name = "locationids" required>
+                                <input (input) = "searchLanguage($event)" placeholder="Search language" class="search-place">
+                                <mat-option *ngFor="let language of searchedLanguages" [value] = "language.id" [disabled] = "disableSelectLanguage(language.id)" > {{language.language}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-        <div class="clr-offset-3 clr-col-9 clr-row">
-            <div class="clr-col-12">
-                Is this a weekend course ? 
-                <mat-radio-group [(ngModel)] = "batch.batch.weekend_course">
-                    <mat-radio-button value = "true" > YES </mat-radio-button>
-                    <mat-radio-button value = "false"> NO </mat-radio-button>
-                </mat-radio-group>
-            </div>
-        </div>
+                    <div class="common-margin form-styling clr-col-6">
+                        <label> Course Cost(Ex GST) </label>
+                        <div class="input-text" [ngClass] = "{'error-input':!cost.valid && !batch.batch_valid}">
+                            <span> Rs </span>
+                            <input type="number" [(ngModel)]="batch.batch.cost" class="fix-input" appPositivecost #cost=ngModel name = "costs" required>
+                        </div>
 
-    </div>
+                        <small *ngIf="!batch.batch_valid && (batch.batch.cost && !cost.valid)" class="error-message">
+                            Cost must be positive
+                        </small>
+                    </div>
+                </div>
+
+                <div class="clr-offset-3 clr-col-9 clr-row">
+                    <div class="clr-col-12">
+                        Is this a weekend course ? 
+                        <mat-radio-group [(ngModel)] = "batch.batch.weekend_course" name = "weekend" required>
+                            <mat-radio-button value = "true" > YES </mat-radio-button>
+                            <mat-radio-button value = "false"> NO </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            
+
+        </div>
+    </form>
+
+    <button (click)="validateBatch(form1, form2)"> Validate </button>
 </div>

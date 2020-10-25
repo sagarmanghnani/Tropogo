@@ -5,6 +5,7 @@ import {Batch} from 'src/Modals/Batch.modal';
 import { BatchModified } from 'src/Modals/BatchModified.modal';
 import {LanguageModel} from 'src/Modals/Language.modal'
 import { UtilService } from 'src/util.service';
+import { Form } from '@angular/forms';
 @Component({
   selector: 'app-add-course-date',
   templateUrl: './add-course-date.component.html',
@@ -20,6 +21,8 @@ export class AddCourseDateComponent implements OnInit {
   isLocationAutoSuggestionActive:boolean = false;
   languages:LanguageModel[] = []; 
   searchedLanguages:LanguageModel[] = [];
+  selectedLanguageSet:Set<number> = new Set();
+
   deleteBatch:EventEmitter<number> = new EventEmitter();
   constructor(
     public courseService:CourseService
@@ -117,6 +120,29 @@ export class AddCourseDateComponent implements OnInit {
     }else{
       this.courseService.toggleBatchExpansion(this.batch.batchId);
     }
+  }
+
+  validateBatch(...forms){
+    for(let i = 0; i< forms.length;i++){
+      if(!forms[i].form.valid){
+        this.batch.batch_valid = false;
+        return false;
+      }
+    }
+    this.batch.batch_valid = true;
+    return true;
+    
+  }
+
+  disableSelectLanguage(language_id:number){
+    if(this.batch.batch.language_ids && this.batch.batch.language_ids.length >= 2){
+      if(this.batch.batch.language_ids.indexOf(language_id) != -1){
+        return false;
+      }else{
+        return true;
+      }
+    }
+    return false;
   }
 
   
